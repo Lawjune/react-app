@@ -7,12 +7,18 @@ import Form from "./common/form";
 
 class MovieForm extends Form {
   state = {
-    data: { title: "", genreId: "", numberInStock: "", dailyRentalRate: "" },
+    data: {
+      title: "",
+      genreId: "",
+      numberInStock: "",
+      dailyRentalRate: "",
+    },
     errors: {},
     genres: [],
   };
 
   schema = {
+    _id: Joi.string(),
     title: Joi.string().required().label("Title"),
     genreId: Joi.label("Genre"),
     numberInStock: Joi.number()
@@ -58,11 +64,12 @@ class MovieForm extends Form {
     };
   }
 
-  doSubmit = async () => {
+  async doSubmit() {
     // Call the server
+    console.log(this.state.data);
     await saveMovie(this.state.data);
     this.props.history.push("/movies");
-  };
+  }
 
   render() {
     return (
